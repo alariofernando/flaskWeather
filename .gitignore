@@ -1,0 +1,4 @@
+# Py Cache, virtual environment and workspace settings
+__pycache__
+.env
+.vscode

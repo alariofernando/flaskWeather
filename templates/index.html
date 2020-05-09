@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{%block title%}CurWeather{%endblock%}
+
+{% block body %}
+    {% if cities is defined %}
+        {% for city in cities %}
+        <ul>
+            <li>Name: <a href="/weather?id={{ city['id'] }}">{{ city["name"] }}</a>, Country: {{ city["sys"]["country"] }}, Coords: {{ city["coord"] }}</li>
+        </ul>
+        {% endfor %}
+    {% endif %}
+    {% if error is defined %}
+        <h1>{{error}}</h1>
+    {% endif %}
+{%endblock%}

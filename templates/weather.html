@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{%block title%}CurWeather{%endblock%}
+
+{% block body %}
+
+{% for CurWeather in weather["weather"] %}
+<p>Clima: <img src="http://openweathermap.org/img/wn/{{ CurWeather['icon'] }}@2x.png" title="{{ CurWeather['main'] }}">, Descrição: {{ CurWeather["description"] }}</p>
+{% endfor %}
+<div id="map"></div>
+    <script>
+
+        var lat = "{{ weather['coord']['lat'] }}"
+        var lng = "{{ weather['coord']['lon'] }}"
+        function initMap() {
+            // The location of the city
+            var city = { lat: parseFloat(lat), lng: parseFloat(lng) };
+            // The map, centered at the city
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: city });
+            // The marker, positioned at the city
+            var marker = new google.maps.Marker({ position: city, map: map });
+        }
+    </script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_eLIPaw4OIdWx5vIBBXWLANNZFEcnpDY&callback=initMap">
+    </script>
+{%endblock%}
