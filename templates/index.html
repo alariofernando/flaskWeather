@@ -1,15 +1,31 @@
 {% extends "layout.html" %}
-{%block title%}CurWeather{%endblock%}
+{%block title%}Flask Weather{%endblock%}
 
 {% block body %}
     {% if cities is defined %}
+        <div>
+            <p>
+                <h7>Your search returned <b>{{ cities | length }}</b> cities!</h7>
+            </p>
+        </div>
         {% for city in cities %}
-        <ul>
-            <li>Name: <a href="/weather?id={{ city['id'] }}">{{ city["name"] }}</a>, Country: {{ city["sys"]["country"] }}, Coords: {{ city["coord"] }}</li>
-        </ul>
+            <ul class="list-group" style="background-color: inherit;">
+                    <li class="list-group-item" style="background-color: inherit;">
+                        <h5>
+                            <a href="/weather?id={{ city['id'] }}">{{ city["name"] }}, {{ city["sys"]["country"] }}</a>
+                        </h5>
+                        Coords: [Lat: {{ city["coord"]["lat"] }}, Lon: {{ city["coord"]["lon"] }}]
+                    </li>
+            </ul>
         {% endfor %}
     {% endif %}
     {% if error is defined %}
-        <h1>{{error}}</h1>
+        <h3>{{error}}</h1>
+    {% endif %}
+    {% if not cities and not error %}
+    <div>
+         <p class="text-justify">Try searching for a city in the above and right search bar!</h3>
+    </div>
+    <footer>I used OpenWeatherMap Free API and Google Maps API for this! I know the styling isn't great, but this is my first web project. Hope you like it!</footer>
     {% endif %}
 {%endblock%}
